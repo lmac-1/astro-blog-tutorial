@@ -1,11 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import BlogPost from '../components/BlogPost.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 
-const allPosts = Object.values(
+// this is for when blogs are statically added in markdown files rather than in a collection
+/* const allPosts = Object.values(
   import.meta.glob('./posts/*.md', { eager: true })
-);
+); */
+
+const allPosts = await getCollection('blog');
 ---
 
 <BaseLayout pageTitle="My Astro learning blog">
@@ -13,7 +17,7 @@ const allPosts = Object.values(
   <ul>
     {
       allPosts.map((post: any) => (
-        <BlogPost url={post.url} title={post.frontmatter.title} />
+        <BlogPost url={`/posts/${post.id}`} title={post.frontmatter.title} />
       ))
     }
   </ul>
