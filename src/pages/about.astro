@@ -1,5 +1,29 @@
 ---
+import '../styles/global.css';
 
+const pageTitle = 'About me';
+const identity = {
+  firstName: 'Lucy',
+  birthCountry: 'the United Kingdom',
+  currentLocation: 'Colombia',
+  occupation: 'Web Developer',
+  hobbies: ['freediving', 'salsa dancing', 'photography', 'travel', 'writing'],
+};
+
+const skills = [
+  'HTML',
+  'CSS',
+  'JavaScript',
+  'React',
+  'Astro',
+  'Technical Writing',
+  'TypeScript',
+  'Next.js',
+];
+
+const skillColor = 'navy';
+const fontWeight = '300';
+const textCase = 'bold';
 ---
 
 <html lang="en">
@@ -8,21 +32,51 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
     <a href="/">home</a>
     <a href="/about">about</a>
     <a href="/blog">blog</a>
-    <h1>About me</h1>
+    <h1>{pageTitle}</h1>
     <h2>... and my new Astro site!</h2>
     <p>
-      I am working through astro's introductory tutorials. This is the second
+      I am working through Astro's introductory tutorials. This is the second
       page that we are building.
     </p>
     <p>
       This site will update as I complete more of the tutorial, so keep checking
       back!
     </p>
+    <p>Here are a few facts about me:</p>
+    <ul>
+      <li>My name is {identity.firstName}</li>
+      <li>
+        I am from {identity.birthCountry}, I live in {identity.currentLocation} and
+        I work as a {identity.occupation}
+      </li>
+      {
+        identity.hobbies.length >= 2 && (
+          <li>
+            Two of my hobbies are {identity.hobbies[0]} and{' '}
+            {identity.hobbies[1]}
+          </li>
+        )
+      }
+    </ul>
+    <p>My skills are:</p>
+    <ul>{skills.map((skill) => <li class="skill">{skill}</li>)}</ul>
   </body>
 </html>
+
+<style define:vars={{ skillColor, fontWeight, textCase }}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+</style>
